@@ -3,7 +3,7 @@ import fs from 'fs';
 import path from 'path'; 
 const __dirname = path.resolve();
 let outputFile = path.join(__dirname, 'output.json');
-*/
+*/ 
 // CODE
 let gridCols = 171; // You will have to get this yourself from the javascript if you have a different screen size
 let gridRows = 96;
