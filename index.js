@@ -161,7 +161,7 @@ fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
   let h = window.innerHeight;
   let w = window.innerWidth;
   document.getElementById("output").
-}*/
+}*/ 
 window.onload = function() {
 document.getElementById("output").offsetTop = 0;
 document.getElementById("output").offsetLeft = 0;
