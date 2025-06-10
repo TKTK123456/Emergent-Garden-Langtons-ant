@@ -142,7 +142,6 @@ while (unchecked.length>0) {
     let potentialLine = []
     allX.forEach((X) => {
       if (unchecked.includes({x:X,y:y})&&runY) {
-        runY = true;
         let index = unchecked.indexOf({x:X,y:y})
         potentialLine.push(unchecked[index])
       } else {
