@@ -5,7 +5,6 @@ const __dirname = path.resolve();
 let outputFile = path.join(__dirname, 'output.json');
 */
 // CODE
-alert("hi")
 let gridCols = 171; // You will have to get this yourself from the javascript if you have a different screen size
 let gridRows = 96;
 let grid = [];
@@ -28,6 +27,7 @@ function setStartLoc(x,y,direction) {
   if (x == posDirc[0] && y == posDirc[1] && direction == posDirc[2]) {
     return;
   }
+  alert("hi")
   while (x<0||x>=gridCols||y<0||y>=gridRows) {
   if (x < 0) {
     let amountLess = Math.abs(x);
