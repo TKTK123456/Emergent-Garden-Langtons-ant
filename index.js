@@ -27,7 +27,7 @@ function setStartLoc(x,y,direction) {
   if (x == posDirc[0] && y == posDirc[1] && direction == posDirc[2]) {
     return;
   }
-  alert("hi")
+  alert("hey")
   while (x<0||x>=gridCols||y<0||y>=gridRows) {
   if (x < 0) {
     let amountLess = Math.abs(x);
