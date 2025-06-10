@@ -157,9 +157,10 @@ alert(e);
 /* FOR EXPORT TO JSON (mjs) - This section is optional
 fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
 */
-alert(document.getElementById("output"))
+document.onload = function() {
 try {
   document.getElementById("output").innerHTML = JSON.stringify(json)
 } catch (e) {
   alert(e)
+}
 }
