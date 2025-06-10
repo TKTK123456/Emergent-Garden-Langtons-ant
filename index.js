@@ -196,7 +196,11 @@ addMoveRule(0, 0, "L", 1);
 addMoveRule(1, 1, "v");
 addMoveRule(1, 2, "N");
 addMoveRule(1, 0, "L", 0);
+try {
 findShortestPath();
+} catch (e) {
+  alert(e)
+}
 /* FOR EXPORT TO JSON (mjs) - This section is optional
 fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
 */
