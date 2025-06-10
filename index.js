@@ -157,6 +157,7 @@ alert(e);
 /* FOR EXPORT TO JSON (mjs) - This section is optional
 fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
 */
+alert("hi")
 window.onload = function() {
 alert(document.getElementById("output"))
 try {
