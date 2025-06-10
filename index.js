@@ -163,9 +163,9 @@ fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
   document.getElementById("output").
 }*/ 
 window.onload = function() {
-alert(document.getElementById("output").offsetTop)
 document.getElementById("output").offsetTop = 0;
 document.getElementById("output").offsetLeft = 0;
+alert(document.getElementById("output").offsetTop)
 try {
   document.getElementById("output").innerHTML = JSON.stringify(json)
 } catch (e) {
