@@ -116,8 +116,8 @@ function findShortestPath() {
   let shortestPathLength = 0;
   let currentPos = startPos;
   let allfilledPoints = [];
-  grid.forEach((item,x), => {
-    item.forEach((value,y), => {
+  grid.forEach((item,x) => {
+    item.forEach((value,y) => {
       if (value>0) allfilledPoints.push({x:x,y:y});
     }); 
   });
@@ -130,7 +130,7 @@ while (unchecked.length>0) {
   let x = startX
   let allX = []
   let y = startY
-  while (unchecked.includes({x:x,y:y}) {
+  while (unchecked.includes({x:x,y:y})) {
     let index = unchecked.indexOf({x:x,y:y})
     allX.push(x)
     newRectangle.push(unchecked[index])
@@ -140,7 +140,7 @@ while (unchecked.length>0) {
   let runY = true
   while (runY) {
     let potentialLine = []
-    allX.forEach((X), => {
+    allX.forEach((X) => {
       if (unchecked.includes({x:X,y:y})&&runY) {
         runY = true;
         let index = unchecked.indexOf({x:X,y:y})
@@ -150,7 +150,7 @@ while (unchecked.length>0) {
       }
     });
     if (runY) {
-      potentialLine.forEach((pos), => {
+      potentialLine.forEach((pos) => {
         let index = unchecked.indexOf(pos);
         newRectangle.push(unchecked[index])
         unchecked.splice(index,1);
