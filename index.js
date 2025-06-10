@@ -160,10 +160,10 @@ fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
 function resize() {
   let h = window.innerHeight;
   let w = window.innerWidth;
-  alert(w+" "+h)
+  //alert(w+" "+h)
   let outputElm = document.getElementById("output")
-  outputElm.style.width=w
-  outputElm.style.height=h
+  outputElm.style.width=w+"px"
+  outputElm.style.height=h+"px"
 }
 window.onload = function() {
 resize()
