@@ -157,17 +157,19 @@ alert(e);
 /* FOR EXPORT TO JSON (mjs) - This section is optional
 fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
 */
-/*function resize() {
+function resize() {
   let h = window.innerHeight;
   let w = window.innerWidth;
-  document.getElementById("output").
-}*/ 
+  let outputElm = document.getElementById("output")
+  outputElm.style.width=w
+  outputElm.style.height=h
+}
 window.onload = function() {
-document.getElementById("output").style.marginLeft = "0px";
-document.getElementById("output").style.marginTop = "0px";
+resize()
 try {
   document.getElementById("output").innerHTML = JSON.stringify(json)
 } catch (e) {
   alert(e)
 }
 }
+window.addEventListener('resize', resize);
