@@ -46,9 +46,6 @@ function setStartLoc(x,y,direction) {
   posDirc = [x,y,direction];
 }
 function colorPoint(x,y,color) {
-  if (!direction) {
-    direction = "right";
-  }
   while (x<0||x>=gridCols||y<0||y>=gridRows) {
     if (x < 0) {
       let amountLess = Math.abs(x);
