@@ -17,14 +17,14 @@ for (let i = 0; i < gridCols; i++) {
 let json = {} // This is the output json
 let startState = 0;
 let startPos = [Math.floor(gridCols/2), Math.floor(gridRows/2)]
-let posDirc = [Math.floor(gridCols/2), Math.floor(gridRows/2), 'right']
+let endPosDirc = [Math.floor(gridCols/2), Math.floor(gridRows/2), 'right']
 
 //Moves to a location
 function setStartLoc(x,y,direction) {
   if (!direction) {
     direction = "right";
   } 
-  if (x == posDirc[0] && y == posDirc[1] && direction == posDirc[2]) {
+  if (x == endPosDirc[0] && y == endPosDirc[1] && direction == endPosDirc[2]) {
     return;
   }
   while (x<0||x>=gridCols||y<0||y>=gridRows) {
@@ -43,7 +43,7 @@ function setStartLoc(x,y,direction) {
     y = y-gridRows;
   }
   }
-  posDirc = [x,y,direction];
+  endPosDirc = [x,y,direction];
 }
 function colorPoint(x,y,color) {
   while (x<0||x>=gridCols||y<0||y>=gridRows) {
@@ -114,7 +114,29 @@ function fillArea(x1,y1,x2,y2,color) {
 function findShortestPath() {
   let shortestPath = [];
   let shortestPathLength = 0;
-  let currentPos = startPos
+  let currentPos = startPos;
+  let allfilledPoints = [];
+  grid.forEach((item,x), => {
+    item.forEach((value,y), => {
+      if (value>0) allfilledPoints.push({x:x,y:y});
+    }); 
+  });
+let rectangles = []
+let unchecked = allfilledPoints
+while (unchecked.length>0) {
+  let newRectangle = [unchecked[0]]
+  let i = 1
+  let x = unchecked[0].x;
+  let y = unchecked[0].y;
+  unchecked.splice(0,1);
+  while (unchecked.includes({x:x+i,y:y}) {
+    let index = unchecked.indexOf({x:x+i,y:y})
+    newRectangle.push(unchecked[index])
+    unchecked.splice(index,1);
+    i++
+  }
+  
+}
 }
 function parseGrid() {
   let shortestPath = [];
@@ -137,7 +159,6 @@ function addMoveRule(state, writeColor, move, nextState) {
   json[state].push({writeColor: writeColor, move: move, nextState: nextState});
 }
 // EXAMPLE CODE FOR RUN - This section is optional (I am also going to use this for generating rules)
-try {
 setStartLoc(0,0);
 colorPoint(0,0,1)
 colorPoint(3,0,1)
@@ -151,9 +172,6 @@ addMoveRule(0, 0, "L", 1);
 addMoveRule(1, 1, "v");
 addMoveRule(1, 2, "N");
 addMoveRule(1, 0, "L", 0);
-} catch (e) {
-alert(e);
-}
 /* FOR EXPORT TO JSON (mjs) - This section is optional
 fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
 */
