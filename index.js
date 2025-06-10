@@ -124,18 +124,40 @@ function findShortestPath() {
 let rectangles = []
 let unchecked = allfilledPoints
 while (unchecked.length>0) {
-  let newRectangle = [unchecked[0]]
-  let i = 1
-  let x = unchecked[0].x;
-  let y = unchecked[0].y;
-  unchecked.splice(0,1);
-  while (unchecked.includes({x:x+i,y:y}) {
-    let index = unchecked.indexOf({x:x+i,y:y})
+  let newRectangle = []
+  let startX = unchecked[0].x;
+  let startY = unchecked[0].y;
+  let x = startX
+  let allX = []
+  let y = startY
+  while (unchecked.includes({x:x,y:y}) {
+    let index = unchecked.indexOf({x:x,y:y})
+    allX.push(x)
     newRectangle.push(unchecked[index])
     unchecked.splice(index,1);
-    i++
+    x++
   }
-  
+  let runY = true
+  while (runY) {
+    let potentialLine = []
+    allX.forEach((X), => {
+      if (unchecked.includes({x:X,y:y}&&runY) {
+        runY = true;
+        let index = unchecked.indexOf({x:X,y:y})
+        potentialLine.push(unchecked[index])
+      } else {
+      runY = false;
+      }
+    });
+    if (runY) {
+      potentialLine.forEach((pos), => {
+        let index = unchecked.indexOf(pos);
+        newRectangle.push(unchecked[index])
+        unchecked.splice(index,1);
+        y++
+      });
+    }
+  }
 }
 }
 function parseGrid() {
