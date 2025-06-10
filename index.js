@@ -27,7 +27,6 @@ function setStartLoc(x,y,direction) {
   if (x == posDirc[0] && y == posDirc[1] && direction == posDirc[2]) {
     return;
   }
-  alert("hey")
   while (x<0||x>=gridCols||y<0||y>=gridRows) {
   if (x < 0) {
     let amountLess = Math.abs(x);
@@ -141,6 +140,7 @@ function addMoveRule(state, writeColor, move, nextState) {
   json[state].push({writeColor: writeColor, move: move, nextState: nextState});
 }
 // EXAMPLE CODE FOR RUN - This section is optional (I am also going to use this for generating rules)
+try {
 setStartLoc(0,0);
 colorPoint(0,0,1)
 colorPoint(3,0,1)
@@ -154,6 +154,9 @@ addMoveRule(0, 0, "L", 1);
 addMoveRule(1, 1, "v");
 addMoveRule(1, 2, "N");
 addMoveRule(1, 0, "L", 0);
+} catch (e) {
+alert(e);
+}
 alert(JSON.stringify(json));
 /* FOR EXPORT TO JSON (mjs) - This section is optional
 fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
