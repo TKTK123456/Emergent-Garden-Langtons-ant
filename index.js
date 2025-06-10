@@ -23,7 +23,7 @@ let posDirc = [Math.floor(gridCols/2), Math.floor(gridRows/2), 'right']
 function setStartLoc(x,y,direction) {
   if (!direction) {
     direction = "right";
-  }
+  } 
   if (x == posDirc[0] && y == posDirc[1] && direction == posDirc[2]) {
     return;
   }
