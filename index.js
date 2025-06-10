@@ -161,8 +161,8 @@ function resize() {
   let h = window.innerHeight;
   let w = window.innerWidth;
   let outputElm = document.getElementById("output")
-  outputElm.style.width=(w-5)+"px"
-  outputElm.style.height=(h-5)+"px"
+  outputElm.style.width=(w-25)+"px"
+  outputElm.style.height=(h-27)+"px"
 }
 window.onload = function() {
 resize()
