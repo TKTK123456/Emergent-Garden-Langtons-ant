@@ -156,4 +156,8 @@ addMoveRule(1, 0, "L", 0);
 /* FOR EXPORT TO JSON (mjs) - This section is optional
 fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
 */
-document.getElementById("output").innerHTML = JSON.stringify(json)
+try {
+  document.getElementById("output").innerHTML = JSON.stringify(json)
+} catch (e) {
+  alert(e)
+}
