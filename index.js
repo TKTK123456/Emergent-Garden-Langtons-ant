@@ -1,6 +1,6 @@
 /* FOR EXPORT TO JSON (mjs) - This section is optional
 import fs from 'fs';
-import path from 'path';
+import path from 'path'; 
 const __dirname = path.resolve();
 let outputFile = path.join(__dirname, 'output.json');
 */
