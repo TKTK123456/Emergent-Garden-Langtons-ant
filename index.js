@@ -84,9 +84,7 @@ function fillArea(x1,y1,x2,y2,color) {
     y2 = temp;
   }
   for (let i = x1; i <= x2; i++) {
-    for (let j = y1; j <= y2; j++) {
-      main.set({x:i,y:j}, color);
-    }
+      main.grid[i].fill(color,y1,y2+1);
   }
 }
 function parseGrid() {
