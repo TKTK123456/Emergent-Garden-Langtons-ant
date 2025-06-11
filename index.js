@@ -7,11 +7,43 @@ let outputFile = path.join(__dirname, 'output.json');
 // CODE
 let gridCols = 171; // You will have to get this yourself from the javascript if you have a different screen size
 let gridRows = 96;
-let grid = [];
+let main = {
+  grid: [],
+  checkCords: function (cords) {
+    let x = cords.x;
+    let y = cords.y;
+    while (x<0||x>=gridCols||y<0||y>=gridRows) {
+      if (x < 0) {
+        let amountLess = Math.abs(x);
+        x = gridCols-amountLess;
+      };
+      if (y < 0) {
+        let amountLess = Math.abs(y);
+        y = gridRows-amountLess;
+      };
+      if (x >= gridCols) {
+        x = x-gridCols;
+      };
+      if (y >= gridRows) {
+        y = y-gridRows;
+      };
+    };
+    return {x:x,y:y};
+  },
+  get: function (cords) {
+    cords = this.checkCords(cords);
+    return this.grid[cords.x][cords.y];
+  },
+  set: function (cords, set) {
+    cords = this.checkCords(cords);
+    this.grid[cords.x][cords.y] = set
+    return this.grid[cords.x][cords.y]
+  }
+}
 for (let i = 0; i < gridCols; i++) {
-  grid[i] = [];
+  main.grid[i] = [];
   for (let j = 0; j < gridRows; j++) {
-    grid[i][j] = 0;
+    main.grid[i][j] = 0;
   }
 }
 let json = {} // This is the output json
@@ -24,77 +56,23 @@ function setStartLoc(x,y,direction) {
   if (!direction) {
     direction = "right";
   } 
+  x = main.checkCord({x:x,y:y}).x
+  y = main.checkCord({x:x,y:y}).y
   if (x == endPosDirc[0] && y == endPosDirc[1] && direction == endPosDirc[2]) {
     return;
-  }
-  while (x<0||x>=gridCols||y<0||y>=gridRows) {
-  if (x < 0) {
-    let amountLess = Math.abs(x);
-    x = gridCols-amountLess;
-  }
-  if (y < 0) {
-    let amountLess = Math.abs(y);
-    y = gridRows-amountLess;
-  }
-  if (x >= gridCols) {
-    x = x-gridCols;
-  }
-  if (y >= gridRows) {
-    y = y-gridRows;
-  }
   }
   endPosDirc = [x,y,direction];
 }
 function colorPoint(x,y,color) {
-  while (x<0||x>=gridCols||y<0||y>=gridRows) {
-    if (x < 0) {
-      let amountLess = Math.abs(x);
-      x = gridCols-amountLess;
-    }
-    if (y < 0) {
-      let amountLess = Math.abs(y);
-      y = gridRows-amountLess;
-    }
-    if (x >= gridCols) {
-      x = x-gridCols;
-    }
-    if (y >= gridRows) {
-      y = y-gridRows;
-    }
-  }
-  grid[x][y] = color;
+  main.set({x:x,y:y}, color);
 }
 function fillArea(x1,y1,x2,y2,color) {
-  while (x1<0||x1>=gridCols||y1<0||y1>=gridRows||x2<0||x2>=gridCols||y2<0||y2>=gridRows) {
-    if (x1 < 0) {
-      let amountLess = Math.abs(x1);
-      x1 = gridCols-amountLess;
-    }
-    if (y1 < 0) {
-      let amountLess = Math.abs(y1);
-      y1 = gridRows-amountLess;
-    }
-    if (x1 >= gridCols) {
-      x1 = x1-gridCols;
-    }
-    if (y1 >= gridRows) {
-      y1 = y1-gridRows;
-    }
-    if (x2 < 0) {
-      let amountLess = Math.abs(x2);
-      x2 = gridCols-amountLess;
-    }
-    if (y2 < 0) {
-      let amountLess = Math.abs(y2);
-      y2 = gridRows-amountLess;
-    }
-    if (x2 >= gridCols) {
-      x2 = x2-gridCols;
-    }
-    if (y2 >= gridRows) {
-      y2 = y2-gridRows;
-    }
-    }
+  let set1 = main.checkCords({x:x1,y:y1})
+  let set2 = main.checkCords({x:x2,y:y2})
+  x1 = set1.x
+  y1 = set1.y
+  x2 = set2.x
+  y2 = set2.y
   if (x1>x2) {
     let temp = x1;
     x1 = x2;
@@ -107,30 +85,51 @@ function fillArea(x1,y1,x2,y2,color) {
   }
   for (let i = x1; i <= x2; i++) {
     for (let j = y1; j <= y2; j++) {
-      grid[i][j] = color;
+      main.set({x:i,y:j}, color);
     }
   }
 }
-function findShortestPath() {
+function parseGrid() {
   let shortestPath = [];
   let goToPoints = [];
   let getDist = function (p1,p2) {
     let distX = Math.abs(p1.x - p2.x)
     let distY = Math.abs(p1.y - p2.y)
-    return distX + distY;
+    let type = {x:0,y:0}
+    let tempDistX = Math.abs(p1.x - (p2.x-gridCols))
+    if (tempDistX<distX) {
+      distX = tempDistX;
+      type.x = 1;
+    }
+    tempDistY = Math.abs(p1.y - (p2.y-gridRows))
+    if (tempDistY<distY) {
+      distY = tempDistY;
+      type.y = 1;
+    }
+    tempDistX = Math.abs(p1.x - (p2.x+gridCols))
+    if (tempDistX<distX) {
+      distX = tempDistX;
+      type.x = 2;
+    }
+    tempDistY = Math.abs(p1.y - (p2.y+gridRows))
+    if (tempDistY<distY) {
+      distY = tempDistY;
+      type.y = 2;
+    }
+    return {dist:distX + distY,type:type};
   }
-  grid.forEach((item,x) => {
+  main.grid.forEach((item,x) => {
     item.forEach((value,y) => {
       if (value>0) goToPoints.push({x:x,y:y});
     }); 
   });
   let path = [{x:startPos[0],y:startPos[1]}]
   while (path.length<goToPoints.length+1) {
-    let shortestDist = gridCols*2 + gridRows*2
+    let shortestDist = Infinity
     let pointIndex = -1
     goToPoints.forEach((item,index) => {
       if (!path.some(e => e.x==item.x&&e.y==item.y)) {
-        let dist = getDist(path[path.length-1],item)
+        let dist = getDist(path[path.length-1],item).dist
         if (shortestDist > dist) {
           shortestDist = dist;
           pointIndex = index;
@@ -143,124 +142,83 @@ function findShortestPath() {
   for (let i = 0;i<path.length-1;i++) {
     let current = path[i]
     let end = path[i+1]
+    let type = getDist(current,end).type;
+    if (type.x==1) end.x = end.x-gridCols; else if (type.x==2) end.x = end.x+gridCols;
+    if (type.y==1) end.y = end.y-gridRows; else if (type.y==2) end.y = end.y+gridRows;
     while (current.x!=end.x||current.y!=end.y) {
       if (current.x<end.x) {
         current.x++
-        shortestPath.push({move:">",x:current.x,y:current.y});
+        shortestPath.push({move:">",pos:{x:current.x,y:current.y}});
       } 
       if (current.x>end.x) {
         current.x--
-        shortestPath.push({move:"<",x:current.x,y:current.y});
+        shortestPath.push({move:"<",pos:{x:current.x,y:current.y}});
       } 
       if (current.y<end.y) {
         current.y++
-        shortestPath.push({move:"v",x:current.x,y:current.y});
+        shortestPath.push({move:"v",pos:{x:current.x,y:current.y}});
       } 
       if (current.y>end.y) {
         current.y--
-        shortestPath.push({move:"^",x:current.x,y:current.y});
+        shortestPath.push({move:"^",pos:{x:current.x,y:current.y}});
       }
     }
   }
-  if (endPosDirc[2]==="right") {
-    let x = shortestPath[shortestPath.length-1].x-1
-    let y = shortestPath[shortestPath.length-1].y
-    while (x<0||x>=gridCols||y<0||y>=gridRows) {
-      if (x < 0) {
-        let amountLess = Math.abs(x);
-        x = gridCols-amountLess;
-      }
-      if (y < 0) {
-        let amountLess = Math.abs(y);
-        y = gridRows-amountLess;
-      }
-      if (x >= gridCols) {
-        x = x-gridCols;
-      }
-      if (y >= gridRows) {
-        y = y-gridRows;
-      }
-    }
-    shortestPath.push({move:"<",x:x,y:y});
-    shortestPath.push({move:">",x:shortestPath[shortestPath.length-2].x,y:shortestPath[shortestPath.length-2].y});
-  } else if (endPosDirc[2]==="left") {
-    let x = shortestPath[shortestPath.length-1].x+1
-    let y = shortestPath[shortestPath.length-1].y
-    while (x<0||x>=gridCols||y<0||y>=gridRows) {
-      if (x < 0) {
-        let amountLess = Math.abs(x);
-        x = gridCols-amountLess;
-      }
-      if (y < 0) {
-        let amountLess = Math.abs(y);
-        y = gridRows-amountLess;
-      }
-      if (x >= gridCols) {
-        x = x-gridCols;
-      }
-      if (y >= gridRows) {
-        y = y-gridRows;
-      }
-    }
-    shortestPath.push({move:">",x:x,y:y});
-    shortestPath.push({move:"<",x:shortestPath[shortestPath.length-2].x,y:shortestPath[shortestPath.length-2].y});
-  } else if (endPosDirc[2]==='up') {
-    let x = shortestPath[shortestPath.length-1].x
-    let y = shortestPath[shortestPath.length-1].y-1
-    while (x<0||x>=gridCols||y<0||y>=gridRows) {
-      if (x < 0) {
-        let amountLess = Math.abs(x);
-        x = gridCols-amountLess;
-      }
-      if (y < 0) {
-        let amountLess = Math.abs(y);
-        y = gridRows-amountLess;
-      }
-      if (x >= gridCols) {
-        x = x-gridCols;
-      }
-      if (y >= gridRows) {
-        y = y-gridRows;
-      }
-    }
-    shortestPath.push({move:"v",x:x,y:y});
-    shortestPath.push({move:"^",x:shortestPath[shortestPath.length-2].x,y:shortestPath[shortestPath.length-2].y});
-  } else if (endPosDirc[2]==='down') {
-    let x = shortestPath[shortestPath.length-1].x
-    let y = shortestPath[shortestPath.length-1].y+1
-    while (x<0||x>=gridCols||y<0||y>=gridRows) {
-      if (x < 0) {
-        let amountLess = Math.abs(x);
-        x = gridCols-amountLess;
-      }
-      if (y < 0) {
-        let amountLess = Math.abs(y);
-        y = gridRows-amountLess;
-      }
-      if (x >= gridCols) {
-        x = x-gridCols;
-      }
-      if (y >= gridRows) {
-        y = y-gridRows;
-      }
-    }
-    shortestPath.push({move:"^",x:x,y:y});
-    shortestPath.push({move:"v",x:shortestPath[shortestPath.length-2].x,y:shortestPath[shortestPath.length-2].y});
-  }
-  return shortestPath
-}
-function parseGrid() {
-  let shortestPath = findShortestPath()
   shortestPath.forEach((value) => {
     let move = value.move
     let state = startState;
-    let color = grid[value.x][value.y]
-    if (!json[state]) {
-      json[state] = [];
-    }
-    json[state].push({writeColor: color, move: move, nextState: startState+1})
+    let color = main.get(value.pos);
     startState++
+    json[state] = [{writeColor: color, move: move, nextState: startState}]
   })
+  if (endPosDirc[2]=='right') {
+    let move = "<"
+    let state = startState;
+    let color = main.get({x:endPosDirc[0],y:endPosDirc[1]});
+    startState++
+    json[state] = [{writeColor: color, move: move, nextState: startState}]
+    move = ">"
+    state = startState;
+    color = main.get({x:endPosDirc[0]-1,y:endPosDirc[1]});
+    startState++
+    json[state] = [{writeColor: color, move: move, nextState: startState}]
+  }
+  if (endPosDirc[2]=='left') {
+    let move = ">"
+    let state = startState;
+    let color = main.get({x:endPosDirc[0],y:endPosDirc[1]});
+    startState++
+    json[state] = [{writeColor: color, move: move, nextState: startState}]
+    move = "<"
+    state = startState;
+    color = main.get({x:endPosDirc[0]+1,y:endPosDirc[1]});
+    startState++
+    json[state] = [{writeColor: color, move: move, nextState: startState}]
+  }
+  if (endPosDirc[2]=='up') {
+    let move = "v"
+    let state = startState;
+    let color = main.get({x:endPosDirc[0],y:endPosDirc[1]});
+    startState++
+    json[state] = [{writeColor: color, move: move, nextState: startState}]
+    move = "^"
+    state = startState;
+    color = main.get({x:endPosDirc[0],y:endPosDirc[1]+1});
+    startState++
+    json[state] = [{writeColor: color, move: move, nextState: startState}]
+  }
+  if (endPosDirc[2]=='down') {
+    let move = "^"
+    let state = startState;
+    let color = main.get({x:endPosDirc[0],y:endPosDirc[1]});
+    startState++
+    json[state] = [{writeColor: color, move: move, nextState: startState}]
+    move = "v"
+    state = startState;
+    color = main.get({x:endPosDirc[0],y:endPosDirc[1]-1});
+    startState++
+    json[state] = [{writeColor: color, move: move, nextState: startState}]
+  }
 }
 // This function adds a move rule to the json you should use this function (one time or more) after the others;
 function addMoveRule(state, writeColor, move, nextState) {
