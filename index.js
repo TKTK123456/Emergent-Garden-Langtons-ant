@@ -165,10 +165,13 @@ function findShortestPath() {
 }
 function parseGrid() {
   let shortestPath = findShortestPath()
-  shortestPath.forEach(value => {
+  shortestPath.forEach((value) => {
     let move = value.move
     let state = startState;
     let color = grid[value.x][value.y]
+    if (!json[state]) {
+      json[state] = [];
+    }
     json[state].push({writeColor: color, move: move, nextState: startState+1})
     startState++
   })
