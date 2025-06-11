@@ -123,7 +123,7 @@ function findShortestPath() {
   });
 let rectangles = []
 let unchecked = allfilledPoints
-alert(unchecked[0].x + "," + unchecked[0].y)
+alert(unchecked.includes({x:unchecked[0].x,y:unchecked[0].y}))
 while (unchecked.length>0) {
   let newRectangle = []
   let startX = unchecked[0].x;
