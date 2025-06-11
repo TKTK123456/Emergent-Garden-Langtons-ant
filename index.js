@@ -131,7 +131,7 @@ while (unchecked.length>0) {
   let allX = []
   let y = startY
   while (unchecked.some(e => e.x===x&&e.y===y)) {
-    let index = unchecked.indexOf({x:x,y:y})
+    let index = unchecked.findIndex(e => e.x===x&&e.y===y)
     allX.push(x)
     newRectangle.push(unchecked[index])
     unchecked.splice(index,1);
@@ -143,7 +143,7 @@ while (unchecked.length>0) {
     let potentialLine = []
     allX.forEach((X) => {
       if (unchecked.some(e => e.x===x&&e.y===y)&&runY) {
-        let index = unchecked.indexOf({x:X,y:y})
+        let index = unchecked.findIndex(e => e.x===x&&e.y===y)
         potentialLine.push(unchecked[index])
       } else {
       runY = false;
