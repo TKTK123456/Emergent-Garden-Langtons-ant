@@ -139,6 +139,7 @@ function findShortestPath() {
     });
     path.push(goToPoints[pointIndex]);
   }
+  path.push({x:endPosDirc[0],y:endPosDirc[1])
   for (let i = 0;i<path.length-1;i++) {
     let current = path[i]
     let end = path[i+1]
@@ -160,6 +161,91 @@ function findShortestPath() {
         shortestPath.push({move:"^",x:current.x,y:current.y});
       }
     }
+  }
+  if (endPosDirc[2]==="right") {
+    let x = shortestPath[shortestPath.length-1].x-1
+    let y = shortestPath[shortestPath.length-1].y
+    while (x<0||x>=gridCols||y<0||y>=gridRows) {
+      if (x < 0) {
+        let amountLess = Math.abs(x);
+        x = gridCols-amountLess;
+      }
+      if (y < 0) {
+        let amountLess = Math.abs(y);
+        y = gridRows-amountLess;
+      }
+      if (x >= gridCols) {
+        x = x-gridCols;
+      }
+      if (y >= gridRows) {
+        y = y-gridRows;
+      }
+    }
+    shortestPath.push({move:"<",x:x,y:y});
+    shortestPath.push({move:">",x:shortestPath[shortestPath.length-2].x,y:shortestPath[shortestPath.length-2].y});
+  } else if (endPosDirc[2]==="left") {
+    let x = shortestPath[shortestPath.length-1].x+1
+    let y = shortestPath[shortestPath.length-1].y
+    while (x<0||x>=gridCols||y<0||y>=gridRows) {
+      if (x < 0) {
+        let amountLess = Math.abs(x);
+        x = gridCols-amountLess;
+      }
+      if (y < 0) {
+        let amountLess = Math.abs(y);
+        y = gridRows-amountLess;
+      }
+      if (x >= gridCols) {
+        x = x-gridCols;
+      }
+      if (y >= gridRows) {
+        y = y-gridRows;
+      }
+    }
+    shortestPath.push({move:">",x:x,y:y});
+    shortestPath.push({move:"<",x:shortestPath[shortestPath.length-2].x,y:shortestPath[shortestPath.length-2].y});
+  } else if (endPosDirc[2]==='up') {
+    let x = shortestPath[shortestPath.length-1].x
+    let y = shortestPath[shortestPath.length-1].y-1
+    while (x<0||x>=gridCols||y<0||y>=gridRows) {
+      if (x < 0) {
+        let amountLess = Math.abs(x);
+        x = gridCols-amountLess;
+      }
+      if (y < 0) {
+        let amountLess = Math.abs(y);
+        y = gridRows-amountLess;
+      }
+      if (x >= gridCols) {
+        x = x-gridCols;
+      }
+      if (y >= gridRows) {
+        y = y-gridRows;
+      }
+    }
+    shortestPath.push({move:"v",x:x,y:y});
+    shortestPath.push({move:"^",x:shortestPath[shortestPath.length-2].x,y:shortestPath[shortestPath.length-2].y});
+  } else if (endPosDirc[2]==='down') {
+    let x = shortestPath[shortestPath.length-1].x
+    let y = shortestPath[shortestPath.length-1].y+1
+    while (x<0||x>=gridCols||y<0||y>=gridRows) {
+      if (x < 0) {
+        let amountLess = Math.abs(x);
+        x = gridCols-amountLess;
+      }
+      if (y < 0) {
+        let amountLess = Math.abs(y);
+        y = gridRows-amountLess;
+      }
+      if (x >= gridCols) {
+        x = x-gridCols;
+      }
+      if (y >= gridRows) {
+        y = y-gridRows;
+      }
+    }
+    shortestPath.push({move:"^",x:x,y:y});
+    shortestPath.push({move:"v",x:shortestPath[shortestPath.length-2].x,y:shortestPath[shortestPath.length-2].y});
   }
   return shortestPath
 }
