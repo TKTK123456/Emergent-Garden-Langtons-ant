@@ -160,6 +160,7 @@ while (unchecked.length>0) {
     i++
   }
 rectangles.push(newRectangle);
+alert(newRectangle)
 }
 alert(rectangles);
 }
