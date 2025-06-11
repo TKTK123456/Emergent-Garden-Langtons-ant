@@ -243,6 +243,7 @@ colorPoint(0,2,1)
 colorPoint(3,2,1)
 colorPoint(1,3,1)
 colorPoint(2,3,1)
+fillArea(startPos[0],startPos[1],gridCols-1,gridRows-1,4)
 parseGrid()
 addMoveRule(0, 1, "v");
 addMoveRule(0, 2, "N");
