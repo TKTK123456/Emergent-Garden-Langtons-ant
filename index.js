@@ -143,27 +143,29 @@ function findShortestPath() {
     let current = path[i]
     let end = path[i+1]
     while (current.x!=end.x||current.y!=end.y) {
-      shortestPath.push(current)
       if (current.x<end.x) {
         current.x++
-      }
+        shortestPath.push(">");
+      } 
       if (current.x>end.x) {
         current.x--
-      }
+        shortestPath.push("<");
+      } 
       if (current.y<end.y) {
         current.y++
-      }
+        shortestPath.push("v");
+      } 
       if (current.y>end.y) {
         current.y--
+        shortestPath.push("^");
       }
     }
   }
-  alert(shortestPath);
+  return shortestPath
 }
 function parseGrid() {
-  let shortestPath = [];
-  let shortestPathLength = 0;
-  
+  let shortestPath = findShortestPath()
+  alert(shortestPath)
 }
 // This function adds a move rule to the json you should use this function (one time or more) after the others;
 function addMoveRule(state, writeColor, move, nextState) {
@@ -187,18 +189,14 @@ colorPoint(3,0,1)
 colorPoint(0,2,1)
 colorPoint(3,2,1)
 colorPoint(1,3,1)
-colorPoint(2,3,1, "right")
+colorPoint(2,3,1)
+parseGrid()
 addMoveRule(0, 1, "v");
 addMoveRule(0, 2, "N");
 addMoveRule(0, 0, "L", 1);
 addMoveRule(1, 1, "v");
 addMoveRule(1, 2, "N");
 addMoveRule(1, 0, "L", 0);
-try {
-findShortestPath();
-} catch (e) {
-  alert(e)
-}
 /* FOR EXPORT TO JSON (mjs) - This section is optional
 fs.writeFileSync(outputFile, JSON.stringify(json, null, 2))
 */
