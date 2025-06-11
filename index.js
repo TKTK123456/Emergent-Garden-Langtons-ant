@@ -139,7 +139,7 @@ function findShortestPath() {
       }
     });
     let useIndex = usedPoints.findIndex(e => e.x==goToPoints[pointIndex].x&&e.y==goToPoints[pointIndex].y)
-    usedPoints.splice(index, 1);
+    usedPoints.splice(useIndex, 1);
     path.push(goToPoints[pointIndex]);
   }
   for (let i = 0;i<path.length-1;i++) {
