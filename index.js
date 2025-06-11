@@ -123,7 +123,6 @@ function findShortestPath() {
   });
 let rectangles = []
 let unchecked = allfilledPoints
-alert(unchecked.includes({x:unchecked[0].x,y:unchecked[0].y}))
 while (unchecked.length>0) {
   let newRectangle = []
   let startX = unchecked[0].x;
@@ -131,7 +130,7 @@ while (unchecked.length>0) {
   let x = startX
   let allX = []
   let y = startY
-  while (unchecked.includes({x:x,y:y})) {
+  while (unchecked.indexOf({x:x,y:y})!=-1) {
     let index = unchecked.indexOf({x:x,y:y})
     allX.push(x)
     newRectangle.push(unchecked[index])
@@ -143,7 +142,7 @@ while (unchecked.length>0) {
   while (runY&&i<10000) {
     let potentialLine = []
     allX.forEach((X) => {
-      if (unchecked.includes({x:X,y:y})&&runY) {
+      if (unchecked.indexOf({x:x,y:y})!=-1&&runY) {
         let index = unchecked.indexOf({x:X,y:y})
         potentialLine.push(unchecked[index])
       } else {
