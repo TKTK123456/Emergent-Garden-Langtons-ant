@@ -56,8 +56,8 @@ function setStartLoc(x,y,direction) {
   if (!direction) {
     direction = "right";
   } 
-  x = main.checkCord({x:x,y:y}).x
-  y = main.checkCord({x:x,y:y}).y
+  x = main.checkCords({x:x,y:y}).x
+  y = main.checkCords({x:x,y:y}).y
   if (x == endPosDirc[0] && y == endPosDirc[1] && direction == endPosDirc[2]) {
     return;
   }
@@ -138,7 +138,7 @@ function parseGrid() {
     });
     path.push(goToPoints[pointIndex]);
   }
-  path.push({x:endPosDirc[0],y:endPosDirc[1])
+  path.push({x:endPosDirc[0],y:endPosDirc[1]})
   for (let i = 0;i<path.length-1;i++) {
     let current = path[i]
     let end = path[i+1]
