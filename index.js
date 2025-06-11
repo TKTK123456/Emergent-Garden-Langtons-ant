@@ -113,55 +113,55 @@ function fillArea(x1,y1,x2,y2,color) {
 }
 function findShortestPath() {
   let shortestPath = [];
-  let shortestPathLength = 0;
-  let currentPos = startPos;
-  let allfilledPoints = [];
+  let goToPoints = [];
+  let getDist = function (p1,p2) {
+    let distX = Math.abs(p1.x - p2.x)
+    let distY = Math.abs(p1.y - p2.y)
+    return distX + distY;
+  }
   grid.forEach((item,x) => {
     item.forEach((value,y) => {
-      if (value>0) allfilledPoints.push({x:x,y:y});
+      if (value>0) goToPoints.push({x:x,y:y});
     }); 
   });
-let rectangles = []
-let unchecked = allfilledPoints
-while (unchecked.length>0) {
-  let newRectangle = []
-  let startX = unchecked[0].x;
-  let startY = unchecked[0].y;
-  let x = startX
-  let allX = []
-  let y = startY
-  while (unchecked.some(e => e.x===x&&e.y===y)) {
-    let index = unchecked.findIndex(e => e.x===x&&e.y===y)
-    allX.push(x)
-    newRectangle.push(unchecked[index])
-    unchecked.splice(index,1);
-    x++
-  }
-  let runY = true
-  let i = 0
-  while (runY&&i<10000) {
-    let potentialLine = []
-    allX.forEach((X) => {
-      if (unchecked.some(e => e.x===x&&e.y===y)&&runY) {
-        let index = unchecked.findIndex(e => e.x===x&&e.y===y)
-        potentialLine.push(unchecked[index])
-      } else {
-      runY = false;
+  let usedPoints = goToPoints
+  let path = [{x:startPos[0],y:startPos[1]}]
+  while (usedPoints.length>0) {
+    let shortestDist = gridCols*2 + gridRows*2
+    let pointIndex = -1
+    goToPoints.forEach((item,index) => {
+      if (usedPoints.some(e => e.x==item.x&&e.y==item.y)) {
+        let dist = getDist(path[path.length-1],item)
+        if (shortestDist > dist) {
+          shortestDist = dist;
+          pointIndex = index;
+        }
       }
     });
-    if (runY) {
-      potentialLine.forEach((pos) => {
-        let index = unchecked.indexOf(pos);
-        newRectangle.push(unchecked[index])
-        unchecked.splice(index,1);
-        y++
-      });
-    }
-    i++
+    let useIndex = usedPoints.findIndex(e => e.x==goToPoints[pointIndex].x&&e.y==goToPoints[pointIndex].y)
+    usedPoints.splice(index, 1);
+    path.push(goToPoints[pointIndex]);
   }
-rectangles.push(newRectangle);
-}
-alert(rectangles);
+  for (let i = 0;i<path.length-1;i++) {
+    let current = path[i]
+    let end = path[i+1]
+    while (current.x!=end.x||current.y!=end.y) {
+      shortestPath.push(current)
+      if (current.x<end.x) {
+        current.x++
+      }
+      if (current.x>end.x) {
+        current.x--
+      }
+      if (current.y<end.y) {
+        current.y++
+      }
+      if (current.y>end.y) {
+        current.y--
+      }
+    }
+  }
+  alert(shortestPath);
 }
 function parseGrid() {
   let shortestPath = [];
