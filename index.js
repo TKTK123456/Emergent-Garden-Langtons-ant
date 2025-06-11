@@ -145,19 +145,19 @@ function findShortestPath() {
     while (current.x!=end.x||current.y!=end.y) {
       if (current.x<end.x) {
         current.x++
-        shortestPath.push(">");
+        shortestPath.push({move:">",x:current.x,y:current.y});
       } 
       if (current.x>end.x) {
         current.x--
-        shortestPath.push("<");
+        shortestPath.push({move:"<",x:current.x,y:current.y});
       } 
       if (current.y<end.y) {
         current.y++
-        shortestPath.push("v");
+        shortestPath.push({move:"v",x:current.x,y:current.y});
       } 
       if (current.y>end.y) {
         current.y--
-        shortestPath.push("^");
+        shortestPath.push({move:"^",x:current.x,y:current.y});
       }
     }
   }
@@ -165,7 +165,13 @@ function findShortestPath() {
 }
 function parseGrid() {
   let shortestPath = findShortestPath()
-  alert(shortestPath)
+  shortestPath.forEach(value => {
+    let move = value.move
+    let state = startState;
+    let color = grid[value.x][value.y]
+    json[state].push({writeColor: color, move: move, nextState: startState+1})
+    startState++
+  })
 }
 // This function adds a move rule to the json you should use this function (one time or more) after the others;
 function addMoveRule(state, writeColor, move, nextState) {
