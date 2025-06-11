@@ -124,13 +124,12 @@ function findShortestPath() {
       if (value>0) goToPoints.push({x:x,y:y});
     }); 
   });
-  let usedPoints = goToPoints
   let path = [{x:startPos[0],y:startPos[1]}]
-  while (usedPoints.length>0) {
+  while (path.length<goToPoints.length+1) {
     let shortestDist = gridCols*2 + gridRows*2
     let pointIndex = -1
     goToPoints.forEach((item,index) => {
-      if (usedPoints.some(e => e.x==item.x&&e.y==item.y)) {
+      if (!path.some(e => e.x==item.x&&e.y==item.y)) {
         let dist = getDist(path[path.length-1],item)
         if (shortestDist > dist) {
           shortestDist = dist;
@@ -138,8 +137,6 @@ function findShortestPath() {
         }
       }
     });
-    let useIndex = usedPoints.findIndex(e => e.x==goToPoints[pointIndex].x&&e.y==goToPoints[pointIndex].y)
-    usedPoints.splice(useIndex, 1);
     path.push(goToPoints[pointIndex]);
   }
   for (let i = 0;i<path.length-1;i++) {
