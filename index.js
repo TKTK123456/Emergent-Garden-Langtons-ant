@@ -71,7 +71,7 @@ function fillArea(x1, y1, x2, y2, color) {
   }
 }
 
-function parseGrid() {function parseGrid() {
+function parseGrid() {
   let shortestPath = [];
   let goToPoints = [];
 
