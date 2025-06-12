@@ -113,24 +113,24 @@ function parseGrid() {
 
   // Move in x direction first
   for (let step = 0; step < Math.abs(dx); step++) {
-    x = (x + (dx > 0 ? 1 : -1) + gridCols) % gridCols;
-    shortestPath.push({ move: dx > 0 ? ">" : "<", pos: { x, y } });
-  }
-
-  // Then move in y direction
-  for (let step = 0; step < Math.abs(dy); step++) {
-    y = (y + (dy > 0 ? 1 : -1) + gridRows) % gridRows;
-    shortestPath.push({ move: dy > 0 ? "v" : "^", pos: { x, y } });
-  }
-}
-
-  shortestPath.forEach(({move, pos}) => {
-    const color = main.get(pos);
+    const color = main.get({x, y}); // Get color BEFORE move
     const state = startState;
     startState++;
-    json[state] = [{writeColor: color, move, nextState: startState}];
-  });
+    json[state] = [{writeColor: color, move: dx > 0 ? ">" : "<", nextState: startState}];
 
+    x = (x + (dx > 0 ? 1 : -1) + gridCols) % gridCols;
+  }
+
+  // Move in y direction
+  for (let step = 0; step < Math.abs(dy); step++) {
+    const color = main.get({x, y});
+    const state = startState;
+    startState++;
+    json[state] = [{writeColor: color, move: dy > 0 ? "v" : "^", nextState: startState}];
+
+    y = (y + (dy > 0 ? 1 : -1) + gridRows) % gridRows;
+  }
+}
   const addFinalMoves = (moves) => {
     moves.forEach(([move, dx, dy]) => {
       const pos = main.checkCords({x: endPosDirc[0] + dx, y: endPosDirc[1] + dy});
