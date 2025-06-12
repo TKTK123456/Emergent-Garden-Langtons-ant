@@ -104,19 +104,25 @@ function parseGrid() {
 
   // Generate moves same as before
   for (let i = 0; i < path.length - 1; i++) {
-    let current = {...path[i]};
-    let target = {...path[i + 1]};
-    const { dx, dy } = getDistAndDelta(current, target);
+  const start = path[i];
+  const end = path[i + 1];
+  const { dx, dy } = getDistAndDelta(start, end);
 
-    for (let step = 0; step < Math.abs(dx); step++) {
-      current.x = (current.x + (dx > 0 ? 1 : -1) + gridCols) % gridCols;
-      shortestPath.push({move: dx > 0 ? ">" : "<", pos: {...current}});
-    }
-    for (let step = 0; step < Math.abs(dy); step++) {
-      current.y = (current.y + (dy > 0 ? 1 : -1) + gridRows) % gridRows;
-      shortestPath.push({move: dy > 0 ? "v" : "^", pos: {...current}});
-    }
+  let x = start.x;
+  let y = start.y;
+
+  // Move in x direction first
+  for (let step = 0; step < Math.abs(dx); step++) {
+    x = (x + (dx > 0 ? 1 : -1) + gridCols) % gridCols;
+    shortestPath.push({ move: dx > 0 ? ">" : "<", pos: { x, y } });
   }
+
+  // Then move in y direction
+  for (let step = 0; step < Math.abs(dy); step++) {
+    y = (y + (dy > 0 ? 1 : -1) + gridRows) % gridRows;
+    shortestPath.push({ move: dy > 0 ? "v" : "^", pos: { x, y } });
+  }
+}
 
   shortestPath.forEach(({move, pos}) => {
     const color = main.get(pos);
