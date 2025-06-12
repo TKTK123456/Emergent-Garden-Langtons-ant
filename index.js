@@ -6,6 +6,7 @@ let outputFile = path.join(__dirname, 'output.json');
 END OF EXPORT SECTION*/
 
 // CONFIG
+function main() {
 let gridCols = 171; // You will have to get this yourself from the javascript if you have a different screen size
 let gridRows = 96;
 
@@ -176,7 +177,7 @@ addMoveRule(0, 0, "L", 1);
 addMoveRule(1, 1, "v");
 addMoveRule(1, 2, "N");
 addMoveRule(1, 0, "L", 0);
-
+}
 /* FOR EXPORT TO JSON (mjs) - This section is optional
 fs.writeFileSync(outputFile, JSON.stringify(json, null, 2));
 END OF EXPORT SECTION */
@@ -188,6 +189,7 @@ function resize() {
 }
 
 window.onload = () => {
+  main();
   resize();
   try {
     document.getElementById("output").innerHTML = JSON.stringify(json);
