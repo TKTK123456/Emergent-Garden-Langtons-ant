@@ -67,7 +67,7 @@ function fillArea(x1, y1, x2, y2, color) {
   if (x1 > x2) [x1, x2] = [x2, x1];
   if (y1 > y2) [y1, y2] = [y2, y1];
   for (let i = x1; i <= x2; i++) {
-    main.grid[i].fill(color, y1, y2 + 1);
+    main.grid[i].fill(color, y1, y2);
   }
 }
 
@@ -162,7 +162,7 @@ colorPoint(0,2,1);
 colorPoint(3,2,1);
 colorPoint(1,3,1);
 colorPoint(2,3,1);
-fillArea(startPos[0], startPos[1], gridCols-1, gridRows-1, 4);
+fillArea(startPos[0], startPos[1], gridCols, gridRows, 4);
 parseGrid();
 addMoveRule(0, 1, "v");
 addMoveRule(0, 2, "N");
