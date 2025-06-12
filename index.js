@@ -6,7 +6,6 @@ let outputFile = path.join(__dirname, 'output.json');
 END OF EXPORT SECTION*/
 
 // CONFIG
-function main() {
 let gridCols = 171; // You will have to get this yourself from the javascript if you have a different screen size
 let gridRows = 96;
 
@@ -27,12 +26,9 @@ let main = {
     return value;
   }
 };
-
-// Initialize grid
 for (let i = 0; i < gridCols; i++) {
   main.grid[i] = Array(gridRows).fill(0);
 }
-
 let json = {}; 
 let startState = 0;
 let startPos = [Math.floor(gridCols / 2), Math.floor(gridRows / 2)];
@@ -160,8 +156,14 @@ function addMoveRule(state, writeColor, move, nextState) {
   if (!json[state]) json[state] = [];
   json[state].push({writeColor, move, nextState});
 }
-
-// EXAMPLE CODE FOR RUN - This section is optional (I am also going to use this for generating rules)
+function run() {
+// Initialize grid
+main.grid = [];
+for (let i = 0; i < gridCols; i++) {
+  main.grid[i] = Array(gridRows).fill(0);
+}
+startPos = [Math.floor(gridCols / 2), Math.floor(gridRows / 2)];
+endPosDirc = [Math.floor(gridCols / 2), Math.floor(gridRows / 2), 'right'];
 setStartLoc(0,0);
 colorPoint(0,0,1);
 colorPoint(3,0,1);
@@ -186,11 +188,13 @@ function resize() {
   const outputElm = document.getElementById("output");
   outputElm.style.width = (window.innerWidth - 25) + "px";
   outputElm.style.height = (window.innerHeight - 27) + "px";
+  gridCols = Math.ceil(window.innerWidth/8)
+  gridRows = Math.ceil(window.innerHeight/8)
 }
 
 window.onload = () => {
-  main();
   resize();
+  run();
   try {
     document.getElementById("output").innerHTML = JSON.stringify(json);
   } catch (e) {
