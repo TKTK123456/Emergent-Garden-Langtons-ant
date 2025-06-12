@@ -83,7 +83,7 @@ function parseGrid() {
 
   let path = [{x: startPos[0], y: startPos[1]}];
   let unvisited = goToPoints.slice();
-
+  if (unvisited.some(e => e.x == startPos[0]&&e.y == startPos[1])) unvisited.splice(unvisited.findIndex(e => e.x == startPos[0]&&e.y == startPos[1]),1)
   while (unvisited.length > 0) {
     let current = path[path.length - 1];
     let closestIdx = 0;
@@ -114,13 +114,13 @@ function parseGrid() {
   // Move in x direction first
   for (let step = 0; step < Math.abs(dx); step++) {
     x = (x + (dx > 0 ? 1 : -1) + gridCols) % gridCols;
-    shortestPath.push({ move: dx > 0 ? "<" : ">", pos: { x, y } });
+    shortestPath.push({ move: dx > 0 ? ">" : "<", pos: { x, y } });
   }
 
   // Then move in y direction
   for (let step = 0; step < Math.abs(dy); step++) {
     y = (y + (dy > 0 ? 1 : -1) + gridRows) % gridRows;
-    shortestPath.push({ move: dy > 0 ? "^" : "v", pos: { x, y } });
+    shortestPath.push({ move: dy > 0 ? "v" : "^", pos: { x, y } });
   }
 }
 
