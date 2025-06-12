@@ -64,7 +64,7 @@ function fillArea(x1, y1, x2, y2, color) {
   if (x1 > x2) [x1, x2] = [x2, x1];
   if (y1 > y2) [y1, y2] = [y2, y1];
   for (let i = x1; i <= x2; i++) {
-    main.grid[i].fill(color, y1, y2);
+    main.grid[i].fill(color, y1, y2+1);
   }
 }
 
