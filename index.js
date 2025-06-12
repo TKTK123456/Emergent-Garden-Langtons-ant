@@ -39,9 +39,9 @@ let endPosDirc = [Math.floor(gridCols / 2), Math.floor(gridRows / 2), 'right'];
 
 // Utility functions for toroidal distance & movement
 function getDelta(p1, p2, size) {
-  const direct = p2 - p1;
-  const wrapped = direct > 0 ? direct - size : direct + size;
-  return Math.abs(direct) < Math.abs(wrapped) ? direct : wrapped;
+  let delta = (p2 - p1 + size) % size;
+  if (delta > size / 2) delta -= size;
+  return delta;
 }
 
 function getDistAndDelta(p1, p2) {
