@@ -1,11 +1,3 @@
-/* FOR EXPORT TO JSON (mjs) - This section is optional
-import fs from 'fs';
-import path from 'path'; 
-const __dirname = path.resolve();
-let outputFile = path.join(__dirname, 'output.json');
-END OF EXPORT SECTION*/
-
-// CONFIG
 const main = {
 gridCols: 171, // You will have to get this yourself from the javascript if you have a different screen size
 gridRows: 96,
