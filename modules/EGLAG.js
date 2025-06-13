@@ -258,7 +258,7 @@ const main = {
         }
         let shortestDist = Infinity;
         let colorNum = null;
-        colors.forEach((c,i) => {
+        this.colors.forEach((c,i) => {
             const dist = colorDistance(c,RGB)
             if (dist < shortestDist) {
                 shortestDist = dist;
