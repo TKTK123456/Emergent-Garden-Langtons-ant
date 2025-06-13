@@ -277,6 +277,23 @@ const main = {
             return rgb;
         };
         return convertRGB(hexToRgb(hex))
+    },
+    convertImage: function(imageData,width,height) {
+        if (!this.gridInited) {
+            this.init()
+        }
+        const scaleImage = function(image) {
+            
+        }
+        for (let y = 0; y < height; y++) {
+            for (let x = 0; x < width; x++) {
+                const index = (y * width + x) * 4;
+                const r = imageData[index];
+                const g = imageData[index + 1];
+                const b = imageData[index + 2];
+                const color = convertRGB({r:r,g:g,b:b});
+            }
+        }
     }
 }
 export default main
