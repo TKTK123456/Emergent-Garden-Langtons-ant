@@ -266,6 +266,16 @@ const main = {
             }
         })
         return colorNum;
+    },
+    convertHex: function(hex) {
+        const hexToRgb = function(hex) {
+            if (hex[0]=='#') {
+                hex = hex.slice(0,1);
+            }
+            let rgb = hex.split(/..?/g)
+            return {r:rgb[0],g:rgb[1],b:[2]};
+        };
+        return convertRGB(hexToRgb(hex))
     }
 }
 export default main
