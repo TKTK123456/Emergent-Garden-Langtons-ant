@@ -154,13 +154,13 @@ parseGrid: function() {
 
 
 // This function adds a move rule to the json you should use this function (one time or more) after the others;
-addMoveRule = function(state, writeColor, move, nextState) {
+addMoveRule: function(state, writeColor, move, nextState) {
   state += this.startState;
   nextState = (nextState !== undefined) ? nextState + this.startState : state;
   if (!this.json[state]) this.json[state] = [];
   this.json[state].push({writeColor, move, nextState});
 },
-init = function() {
+init: function() {
 this.gridCols = Math.ceil(this.width/8);
 this.gridRows = Math.ceil(this.height/8);
 this.startPos = [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2)];
