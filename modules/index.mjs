@@ -1,28 +1,28 @@
 const main = {
 gridCols: 171, // You will have to get this yourself from the javascript if you have a different screen size
 gridRows: 96,
-startPos: [Math.floor(gridCols / 2), Math.floor(gridRows / 2)],
-endPosDirc: [Math.floor(gridCols / 2), Math.floor(gridRows / 2), 'right'],
+startPos: [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2)],
+endPosDirc: [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2), 'right'],
 gridInited: false,
 grid: [],
 checkCords: function ({x, y}) {
     if (!this.gridInited) {
-      initGrid()
+      this.initGrid()
     }
-    x = ((x % gridCols) + gridCols) % gridCols;
-    y = ((y % gridRows) + gridRows) % gridRows;
+    x = ((x % this.gridCols) + this.gridCols) % this.gridCols;
+    y = ((y % this.gridRows) + this.gridRows) % this.gridRows;
     return {x, y};
 },
 get: function (cords) {
   if (!this.gridInited) {
-      initGrid()
+      this.initGrid()
     }
     cords = this.checkCords(cords);
     return this.grid[cords.x][cords.y];
 },
 set: function (cords, value) {
   if (!this.gridInited) {
-      initGrid()
+      this.initGrid()
     }
     cords = this.checkCords(cords);
     this.grid[cords.x][cords.y] = value;
@@ -38,8 +38,8 @@ getDelta: function(p1, p2, size) {
 },
 
 getDistAndDelta: function(p1, p2) {
-  const dx = this.getDelta(p1.x, p2.x, gridCols);
-  const dy = this.getDelta(p1.y, p2.y, gridRows);
+  const dx = this.getDelta(p1.x, p2.x, this.gridCols);
+  const dy = this.getDelta(p1.y, p2.y, this.gridRows);
   return { dist: Math.abs(dx) + Math.abs(dy), dx, dy };
 },
 
@@ -56,7 +56,7 @@ colorPoint: function(x, y, color) {
 
 fillArea: function(x1, y1, x2, y2, color) {
   if (!this.gridInited) {
-      initGrid()
+      this.initGrid()
     }
   ({x: x1, y: y1} = this.checkCords({x: x1, y: y1}));
   ({x: x2, y: y2} = this.checkCords({x: x2, y: y2}));
@@ -69,7 +69,7 @@ fillArea: function(x1, y1, x2, y2, color) {
 
 parseGrid: function() {
   if (!this.gridInited) {
-      initGrid()
+      this.initGrid()
   }
   let shortestPath = [];
   let goToPoints = [];
@@ -117,7 +117,7 @@ parseGrid: function() {
     this.startState++;
     this.json[state] = [{writeColor: color, move: dx > 0 ? ">" : "<", nextState: this.startState}];
 
-    x = (x + (dx > 0 ? 1 : -1) + gridCols) % gridCols;
+    x = (x + (dx > 0 ? 1 : -1) + this.gridCols) % this.gridCols;
   }
 
   // Move in y direction
@@ -127,7 +127,7 @@ parseGrid: function() {
     this.startState++;
     this.json[state] = [{writeColor: color, move: dy > 0 ? "v" : "^", nextState: this.startState}];
 
-    y = (y + (dy > 0 ? 1 : -1) + gridRows) % gridRows;
+    y = (y + (dy > 0 ? 1 : -1) + this.gridRows) % this.gridRows;
   }
 }
   const addFinalMoves = (moves) => {
@@ -162,7 +162,7 @@ initGrid = function() {
 this.grid = Array(this.gridCols).fill(null).map(() => Array(this.gridRows).fill(0));
 this.gridInited = true;
 },
-clearGrid = function() {
+resetGrid = function() {
   initGrid()
 }
 }
