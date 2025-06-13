@@ -102,7 +102,6 @@ parseGrid: function() {
   }
 
   path.push({x: this.endPosDirc[0], y: this.endPosDirc[1]});
-
   // Generate moves same as before
   for (let i = 0; i < path.length - 1; i++) {
   const start = path[i];
@@ -134,7 +133,7 @@ parseGrid: function() {
 }
   const addFinalMoves = (moves) => {
     moves.forEach(([move, dx, dy]) => {
-      const pos = this.checkCords({x: endPosDirc[0] + dx, y: endPosDirc[1] + dy});
+      const pos = this.checkCords({x: this.endPosDirc[0] + dx, y: this.endPosDirc[1] + dy});
       const color = this.get(pos);
       const state = this.startState;
       this.startState++;
