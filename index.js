@@ -1,26 +1,20 @@
 import main from "./modules/index.mjs";
 function run() {
-main.grid = [];
-for (let i = 0; i < gridCols; i++) {
-  main.grid[i] = Array(gridRows).fill(0);
-}
-main.startPos = [Math.floor(gridCols / 2), Math.floor(gridRows / 2)];
-endPosDirc = [Math.floor(gridCols / 2), Math.floor(gridRows / 2), 'right'];
 main.setStartLoc(0,0);
-colorPoint(0,0,1);
-colorPoint(3,0,1);
-colorPoint(0,2,1);
-colorPoint(3,2,1);
-colorPoint(1,3,1);
-colorPoint(2,3,1);
-fillArea(startPos[0], startPos[1], gridCols-1, gridRows-1, 4);
-parseGrid();
-addMoveRule(0, 1, "v");
-addMoveRule(0, 2, "N");
-addMoveRule(0, 0, "L", 1);
-addMoveRule(1, 1, "v");
-addMoveRule(1, 2, "N");
-addMoveRule(1, 0, "L", 0);
+main.colorPoint(0,0,1);
+main.colorPoint(3,0,1);
+main.colorPoint(0,2,1);
+main.colorPoint(3,2,1);
+main.colorPoint(1,3,1);
+main.colorPoint(2,3,1);
+main.fillArea(main.startPos[0], main.startPos[1], main.gridCols-1, main.gridRows-1, 4);
+main.parseGrid();
+main.addMoveRule(0, 1, "v");
+main.addMoveRule(0, 2, "N");
+main.addMoveRule(0, 0, "L", 1);
+main.addMoveRule(1, 1, "v");
+main.addMoveRule(1, 2, "N");
+main.addMoveRule(1, 0, "L", 0);
 }
 
 function resize() {
@@ -35,7 +29,7 @@ window.onload = () => {
   resize();
   run();
   try {
-    document.getElementById("output").innerHTML = JSON.stringify(json);
+    document.getElementById("output").innerHTML = JSON.stringify(main.json);
   } catch (e) {
     alert(e);
   }
