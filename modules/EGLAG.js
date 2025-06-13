@@ -3,8 +3,8 @@ width: 1366,
 height: 768,
 gridCols: 171, // You will have to get this yourself from the javascript if you have a different screen size
 gridRows: 96,
-startPos: [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2)],
-endPosDirc: [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2), 'right'],
+startPos: undefined,
+endPosDirc: undefined,
 gridInited: false,
 grid: [],
 checkCords: function ({x, y}) {
