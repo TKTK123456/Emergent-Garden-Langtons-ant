@@ -1,4 +1,6 @@
 const main = {
+width: 1366,
+height: 768,
 gridCols: 171, // You will have to get this yourself from the javascript if you have a different screen size
 gridRows: 96,
 startPos: [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2)],
@@ -7,7 +9,7 @@ gridInited: false,
 grid: [],
 checkCords: function ({x, y}) {
     if (!this.gridInited) {
-      this.initGrid()
+      this.init()
     }
     x = ((x % this.gridCols) + this.gridCols) % this.gridCols;
     y = ((y % this.gridRows) + this.gridRows) % this.gridRows;
@@ -15,14 +17,14 @@ checkCords: function ({x, y}) {
 },
 get: function (cords) {
   if (!this.gridInited) {
-      this.initGrid()
+      this.init()
     }
     cords = this.checkCords(cords);
     return this.grid[cords.x][cords.y];
 },
 set: function (cords, value) {
   if (!this.gridInited) {
-      this.initGrid()
+      this.init()
     }
     cords = this.checkCords(cords);
     this.grid[cords.x][cords.y] = value;
@@ -56,7 +58,7 @@ colorPoint: function(x, y, color) {
 
 fillArea: function(x1, y1, x2, y2, color) {
   if (!this.gridInited) {
-      this.initGrid()
+      this.init()
     }
   ({x: x1, y: y1} = this.checkCords({x: x1, y: y1}));
   ({x: x2, y: y2} = this.checkCords({x: x2, y: y2}));
@@ -69,7 +71,7 @@ fillArea: function(x1, y1, x2, y2, color) {
 
 parseGrid: function() {
   if (!this.gridInited) {
-      this.initGrid()
+      this.init()
   }
   let shortestPath = [];
   let goToPoints = [];
@@ -158,12 +160,13 @@ addMoveRule = function(state, writeColor, move, nextState) {
   if (!this.json[state]) this.json[state] = [];
   this.json[state].push({writeColor, move, nextState});
 },
-initGrid = function() {
+init = function() {
+this.gridCols = Math.ceil(this.width/8);
+this.gridRows = Math.ceil(this.height/8);
+this.startPos = [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2)];
+this.endPosDirc = [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2), 'right'];
 this.grid = Array(this.gridCols).fill(null).map(() => Array(this.gridRows).fill(0));
 this.gridInited = true;
-},
-resetGrid = function() {
-  initGrid()
 }
 }
 export default main
