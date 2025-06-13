@@ -249,8 +249,14 @@ const main = {
         this.grid = Array(this.gridCols).fill(null).map(() => Array(this.gridRows).fill(0));
         this.gridInited = true;
     },
-    convertHex: function(hex) {
-        return hex
+    colors: [{r:0,g:0,b:0},{r:255,g:255,b:255},{r:255,g:0,b:255},{r:255,g:255,b:0},{r:0,g:255,b:0},{r:0,g:255,b:255},{r:255,g:0,b:0},{r:255,g:165,b:0},{r:0,g:0,b:255},{r:255,g:105,b:180},{r:218,g:112,b:214},{r:138,g:43,b:226}]
+    convertRGB: function(RGB) {
+        const colorDistance = (color1, color2) => {
+            const {r:r1, g:g1, b:b1} = color1;
+            const {r:r2, g:g2, b:b2} = color2;
+            return Math.sqrt(Math.pow(r2 - r1, 2) + Math.pow(g2 - g1, 2) + Math.pow(b2 - b1, 2));
+        };
+         
     }
 }
 export default main
