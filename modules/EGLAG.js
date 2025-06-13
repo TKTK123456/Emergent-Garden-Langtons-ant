@@ -273,7 +273,8 @@ const main = {
                 hex = hex.slice(0,1);
             }
             let rgb = hex.split(/..?/g)
-            return {r:rgb[0],g:rgb[1],b:[2]};
+            rgb = {r:parseInt(rgb[0],16),g:parseInt(rgb[1],16),b:parseInt(rgb[2],16)}
+            return rgb;
         };
         return convertRGB(hexToRgb(hex))
     }
