@@ -1,4 +1,5 @@
 const main = {
+    scale: 8,
     width: 1366,
     height: 768,
     gridCols: 171, // You will have to get this yourself from the javascript if you have a different screen size
@@ -242,8 +243,8 @@ const main = {
         });
     },
     init: function() {
-        this.gridCols = Math.ceil(this.width / 8);
-        this.gridRows = Math.ceil(this.height / 8);
+        this.gridCols = Math.ceil(this.width / scale);
+        this.gridRows = Math.ceil(this.height / scale);
         this.startPos = [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2)];
         this.endPosDirc = [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2), 'right'];
         this.grid = Array(this.gridCols).fill(null).map(() => Array(this.gridRows).fill(0));
@@ -282,7 +283,7 @@ const main = {
         if (!this.gridInited) {
             this.init()
         }
-        const scaleImage = function(image) {
+        const getScaledPixel = function(x,y) {
             
         }
         for (let y = 0; y < height; y++) {
