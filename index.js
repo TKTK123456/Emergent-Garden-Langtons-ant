@@ -1,4 +1,4 @@
-import main from "./modules/index.mjs";
+import main from "./modules/EGLAG.js";
 try {
 function run() {
 main.setStartLoc(0,0);
