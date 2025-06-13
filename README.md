@@ -1,1 +1,1 @@
-If you want to have mjs use the index.mjs file
+If you want to have a exportable file use the EGLAG file
