@@ -1,4 +1,5 @@
 import main from "./modules/index.mjs";
+try {
 function run() {
 main.setStartLoc(0,0);
 main.colorPoint(0,0,1);
@@ -35,3 +36,6 @@ window.onload = () => {
   }
 };
 window.addEventListener('resize', resize);
+} catch (e) {
+alert(e)
+}
