@@ -243,8 +243,8 @@ const main = {
         });
     },
     init: function() {
-        this.gridCols = Math.ceil(this.width / scale);
-        this.gridRows = Math.ceil(this.height / scale);
+        this.gridCols = Math.ceil(this.width / this.scale);
+        this.gridRows = Math.ceil(this.height / this.scale);
         this.startPos = [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2)];
         this.endPosDirc = [Math.floor(this.gridCols / 2), Math.floor(this.gridRows / 2), 'right'];
         this.grid = Array(this.gridCols).fill(null).map(() => Array(this.gridRows).fill(0));
