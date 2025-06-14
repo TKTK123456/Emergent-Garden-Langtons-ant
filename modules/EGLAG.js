@@ -8,19 +8,13 @@ const main = {
     endPosDirc: undefined,
     gridInited: false,
     grid: [],
-    checkCords: function({
-        x,
-        y
-    }) {
+    checkCords: function({x, y}) {
         if (!this.gridInited) {
             this.init()
         }
         x = ((x % this.gridCols) + this.gridCols) % this.gridCols;
         y = ((y % this.gridRows) + this.gridRows) % this.gridRows;
-        return {
-            x,
-            y
-        };
+        return {x,y};
     },
     get: function(cords) {
         if (!this.gridInited) {
@@ -49,51 +43,27 @@ const main = {
     getDistAndDelta: function(p1, p2) {
         const dx = this.getDelta(p1.x, p2.x, this.gridCols);
         const dy = this.getDelta(p1.y, p2.y, this.gridRows);
-        return {
-            dist: Math.abs(dx) + Math.abs(dy),
-            dx,
-            dy
-        };
+        return {dist: Math.abs(dx) + Math.abs(dy),dx,dy};
     },
 
     // Moves to a location
     setStartLoc: function(x, y, direction = "right") {
-        ({
-            x,
-            y
-        } = this.checkCords({
-            x,
-            y
-        }));
+        ({x,y} = this.checkCords({x,y}));
         if (x === this.endPosDirc[0] && y === this.endPosDirc[1] && direction === this.endPosDirc[2]) return;
         this.endPosDirc = [x, y, direction];
     },
 
     colorPoint: function(x, y, color) {
-        this.set({
-            x,
-            y
-        }, color);
+        this.set({x,y}, color);
     },
 
     fillArea: function(x1, y1, x2, y2, color) {
         if (!this.gridInited) {
             this.init()
         }
-        ({
-            x: x1,
-            y: y1
-        } = this.checkCords({
-            x: x1,
-            y: y1
-        }));
-        ({
-            x: x2,
-            y: y2
-        } = this.checkCords({
-            x: x2,
-            y: y2
-        }));
+        ({x: x1,y: y1} = this.checkCords({x: x1,y: y1}));
+        ({ x: x2,y: y2
+        } = this.checkCords({x: x2,y: y2}));
         if (x1 > x2)[x1, x2] = [x2, x1];
         if (y1 > y2)[y1, y2] = [y2, y1];
         for (let i = x1; i <= x2; i++) {
@@ -110,17 +80,11 @@ const main = {
 
         this.grid.forEach((col, x) => {
             col.forEach((val, y) => {
-                if (val > 0) goToPoints.push({
-                    x,
-                    y
-                });
+                if (val > 0) goToPoints.push({x,y});
             });
         });
 
-        let path = [{
-            x: this.startPos[0],
-            y: this.startPos[1]
-        }];
+        let path = [{x: this.startPos[0],y: this.startPos[1]}];
         let unvisited = goToPoints.slice();
         if (unvisited.some(e => e.x == this.startPos[0] && e.y == this.startPos[1])) unvisited.splice(unvisited.findIndex(e => e.x == this.startPos[0] && e.y == this.startPos[1]), 1)
         while (unvisited.length > 0) {
@@ -129,9 +93,7 @@ const main = {
             let shortestDist = this.getDistAndDelta(current, unvisited[0]).dist;
 
             for (let i = 1; i < unvisited.length; i++) {
-                let {
-                    dist
-                } = this.getDistAndDelta(current, unvisited[i]);
+                let {dist} = this.getDistAndDelta(current, unvisited[i]);
                 if (dist < shortestDist) {
                     shortestDist = dist;
                     closestIdx = i;
@@ -141,28 +103,19 @@ const main = {
             path.push(nextPoint);
         }
 
-        path.push({
-            x: this.endPosDirc[0],
-            y: this.endPosDirc[1]
-        });
+        path.push({x: this.endPosDirc[0],y: this.endPosDirc[1]});
         // Generate moves same as before
         for (let i = 0; i < path.length - 1; i++) {
             const start = path[i];
             const end = path[i + 1];
-            const {
-                dx,
-                dy
-            } = this.getDistAndDelta(start, end);
+            const {dx,dy} = this.getDistAndDelta(start, end);
 
             let x = start.x;
             let y = start.y;
 
             // Move in x direction first
             for (let step = 0; step < Math.abs(dx); step++) {
-                const color = this.get({
-                    x,
-                    y
-                }); // Get color BEFORE move
+                const color = this.get({x,y}); // Get color BEFORE move
                 const state = this.startState;
                 this.startState++;
                 this.json[state] = [{
@@ -193,10 +146,7 @@ const main = {
         }
         const addFinalMoves = (moves) => {
             moves.forEach(([move, dx, dy]) => {
-                const pos = this.checkCords({
-                    x: this.endPosDirc[0] + dx,
-                    y: this.endPosDirc[1] + dy
-                });
+                const pos = this.checkCords({x: this.endPosDirc[0] + dx,y: this.endPosDirc[1] + dy});
                 const color = this.get(pos);
                 const state = this.startState;
                 this.startState++;
@@ -271,7 +221,7 @@ const main = {
     convertHex: function(hex) {
         const hexToRgb = function(hex) {
             if (hex[0]=='#') {
-                hex = hex.slice(0,1);
+                hex = hex.slice(1);
             }
             let rgb = hex.split(/..?/g)
             rgb = {r:parseInt(rgb[0],16),g:parseInt(rgb[1],16),b:parseInt(rgb[2],16)}
@@ -279,22 +229,38 @@ const main = {
         };
         return convertRGB(hexToRgb(hex))
     },
-    convertImage: function(imageData,width,height) {
-        if (!this.gridInited) {
-            this.init()
-        }
-        const getScaledPixel = function(x,y) {
-            
-        }
-        for (let y = 0; y < height; y++) {
-            for (let x = 0; x < width; x++) {
-                const index = (y * width + x) * 4;
-                const r = imageData[index];
-                const g = imageData[index + 1];
-                const b = imageData[index + 2];
-                const color = convertRGB({r:r,g:g,b:b});
+    convertImage: function(imageData, width, height) {
+    if (!this.gridInited) {
+        this.init()
+    }
+    let scaleW = width / this.gridCols;
+    let scaleH = height / this.gridRows;
+    for (let gridY = 0; gridY < this.gridRows; gridY++) {
+        for (let gridX = 0; gridX < this.gridCols; gridX++) {
+            let startX = Math.floor(gridX * scaleW);
+            let endX = Math.min(Math.floor((gridX + 1) * scaleW), width);
+            let startY = Math.floor(gridY * scaleH);
+            let endY = Math.min(Math.floor((gridY + 1) * scaleH), height);
+            let rgb = { r: 0, g: 0, b: 0 };
+            let count = 0;
+            for (let y = startY; y < endY; y++) {
+                for (let x = startX; x < endX; x++) {
+                    const index = (y * width + x) * 4;
+                    rgb.r += imageData[index];
+                    rgb.g += imageData[index + 1];
+                    rgb.b += imageData[index + 2];
+                    count++;
+                }
             }
+            if (count > 0) {
+                rgb.r = Math.round(rgb.r / count);
+                rgb.g = Math.round(rgb.g / count);
+                rgb.b = Math.round(rgb.b / count);
+            }
+            let colorIndex = this.convertRGB(rgb);
+            this.set({ x: gridX, y: gridY }, colorIndex);
         }
     }
+}
 }
 export default main
