@@ -27,8 +27,8 @@ function resize() {
 
 window.onload = () => {
   resize();
-  run();
   try {
+    run();
     document.getElementById("output").innerHTML = JSON.stringify(main.json);
   } catch (e) {
     alert(e);
