@@ -16,7 +16,8 @@ main.addMoveRule(1, 1, "v");
 main.addMoveRule(1, 2, "N");
 main.addMoveRule(1, 0, "L", 0);
 }
-
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 function resize() {
   const outputElm = document.getElementById("output");
   outputElm.style.width = (window.innerWidth - 25) + "px";
