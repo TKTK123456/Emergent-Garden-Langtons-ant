@@ -25,7 +25,13 @@ function resize() {
   main.width = window.innerWidth
   main.height = window.innerHeight
 }
-
+function toggleHide(elm) {
+  if (elm.hidden) {
+    elm.hidden = false;
+  } else {
+    elm.hidden = true
+  }
+}
 window.onload = () => {
   resize();
   try {
@@ -36,3 +42,8 @@ window.onload = () => {
   }
 };
 window.addEventListener('resize', resize);
+window.addEventListener('keyDown', (c) => {
+  if (c.key==="c") {
+    
+  }
+})
