@@ -17,6 +17,7 @@ main.addMoveRule(1, 2, "N");
 main.addMoveRule(1, 0, "L", 0);
 }
 const canvas = document.getElementById('canvas');
+const canvasHolder = document.getElementById("canvasHolder")
 const ctx = canvas.getContext('2d');
 function resize() {
   const outputElm = document.getElementById("output");
@@ -44,6 +45,6 @@ window.onload = () => {
 window.addEventListener('resize', resize);
 window.addEventListener('keyDown', (c) => {
   if (c.key==="c") {
-    toggleHide(document.getElementById("canvas"))
+    toggleHide(canvasHolder)
   }
 })
