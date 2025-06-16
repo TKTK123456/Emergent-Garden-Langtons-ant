@@ -59,8 +59,8 @@ function drawGrid() {
     // ctx.scale(scale, scale);
 
     if (main.gridCols <= 0 || main.gridRows <= 0) { return; }
-    let offsetX = main.gridCols/2
-    let offsetY = main.gridRows/2
+    let offsetX = main.width/2
+    let offsetY = main.height/2
     // Calculate visible grid bounds (in grid cell coordinates - still useful)
     const viewX1 = -offsetX / main.scale, viewY1 = -offsetY / main.scale;
     const viewX2 = (main.width - offsetX) / main.scale, viewY2 = (main.height - offsetY) / main.scale;
@@ -74,10 +74,10 @@ function drawGrid() {
 
     // Draw ALL cells using calculated pixel coordinates
     for (let x = startCol; x < endCol; x++) {
-        if (x < 0 || x >= grid.length || !grid[x]) continue;
+        if (x < 0 || x >= main.grid.length || !main.grid[x]) continue;
         for (let y = startRow; y < endRow; y++) {
-             if (y < 0 || y >= grid[x].length) continue;
-            const colorIndex = grid[x][y];
+             if (y < 0 || y >= main.grid[x].length) continue;
+            const colorIndex = main.grid[x][y];
             // Draw ALL valid color indices (including 0)
             if (colorIndex >= 0 && colorIndex < main.colors.length) {
                  ctx.fillStyle = main.colors[colorIndex];
