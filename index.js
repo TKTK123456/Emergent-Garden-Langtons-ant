@@ -50,3 +50,47 @@ window.addEventListener('keydown', (c) => {
     toggleHide(canvasHolder)
   }
 })
+function drawGrid() {
+    if (!main.grid || !main.grid.length || !main.grid[0].length || !ctx) return;
+    // Remove save/transform/restore - calculate pixels directly
+    // ctx.save();
+    // ctx.translate(offsetX, offsetY);
+    // ctx.scale(scale, scale);
+
+    if (main.gridCols <= 0 || main.gridRows <= 0) { return; }
+
+    // Calculate visible grid bounds (in grid cell coordinates - still useful)
+    const viewX1 = -offsetX / main.scale, viewY1 = -offsetY / main.scale;
+    const viewX2 = (main.width - offsetX) / main.scale, viewY2 = (main.height - offsetY) / main.scale;
+    const cellSize = 1;
+    // Add a small buffer to catch cells partially visible at edges
+    const buffer = 2;
+    const startCol = Math.max(0, Math.floor(viewX1 / cellSize) - buffer);
+    const endCol = Math.min(gridCols, Math.ceil(viewX2 / cellSize) + buffer);
+    const startRow = Math.max(0, Math.floor(viewY1 / cellSize) - buffer);
+    const endRow = Math.min(gridRows, Math.ceil(viewY2 / cellSize) + buffer);
+
+    // Draw ALL cells using calculated pixel coordinates
+    for (let x = startCol; x < endCol; x++) {
+        if (x < 0 || x >= grid.length || !grid[x]) continue;
+        for (let y = startRow; y < endRow; y++) {
+             if (y < 0 || y >= grid[x].length) continue;
+
+            const colorIndex = grid[x][y];
+            // Draw ALL valid color indices (including 0)
+            if (colorIndex >= 0 && colorIndex < cellColors.length) {
+                 ctx.fillStyle = main.color[colorIndex];
+
+                 // Calculate final pixel coordinates and dimensions
+                 const px = Math.floor(offsetX + x * cellSize * scale);
+                 const py = Math.floor(offsetY + y * cellSize * scale);
+                 const pw = Math.ceil(cellSize * scale);
+                 const ph = Math.ceil(cellSize * scale);
+
+                 if (px + pw > 0 && px < width && py + ph > 0 && py < height) {
+                    ctx.fillRect(px, py, pw, ph);
+                 }
+            } // else { console.warn(`Invalid color index at ${x},${y}: ${colorIndex}`); } // Optional: Warn on invalid index
+        }
+    }
+}
