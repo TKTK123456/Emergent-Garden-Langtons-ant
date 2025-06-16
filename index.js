@@ -27,6 +27,7 @@ function resize() {
   main.height = window.innerHeight
 }
 function toggleHide(elm) {
+  alert("Toggle hide")
   if (elm.hidden) {
     elm.hidden = false;
   } else {
@@ -43,7 +44,7 @@ window.onload = () => {
   }
 };
 window.addEventListener('resize', resize);
-window.addEventListener('keyDown', (c) => {
+window.addEventListener('keydown', (c) => {
   if (c.key==="c") {
     toggleHide(canvasHolder)
   }
