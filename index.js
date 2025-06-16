@@ -59,7 +59,8 @@ function drawGrid() {
     // ctx.scale(scale, scale);
 
     if (main.gridCols <= 0 || main.gridRows <= 0) { return; }
-
+    let offsetX = main.gridCols/2
+    let offsetY = main.gridRows/2
     // Calculate visible grid bounds (in grid cell coordinates - still useful)
     const viewX1 = -offsetX / main.scale, viewY1 = -offsetY / main.scale;
     const viewX2 = (main.width - offsetX) / main.scale, viewY2 = (main.height - offsetY) / main.scale;
