@@ -26,9 +26,9 @@ function resize() {
   main.width = window.innerWidth
   main.height = window.innerHeight
   outputTxt.style.width = main.width + "px";
-  outputTxt.style.height = (main.height-2) + "px";
+  outputTxt.style.height = main.height + "px";
   canvas.width = main.width
-  canvas.height = (main.height-2)
+  canvas.height = main.height
 }
 function toggleHide(elm) {
   if (elm.hidden) {
