@@ -66,9 +66,9 @@ function drawGrid() {
     // Add a small buffer to catch cells partially visible at edges
     const buffer = 2;
     const startCol = Math.max(0, Math.floor(viewX1 / cellSize) - buffer);
-    const endCol = Math.min(gridCols, Math.ceil(viewX2 / cellSize) + buffer);
+    const endCol = Math.min(main.gridCols, Math.ceil(viewX2 / cellSize) + buffer);
     const startRow = Math.max(0, Math.floor(viewY1 / cellSize) - buffer);
-    const endRow = Math.min(gridRows, Math.ceil(viewY2 / cellSize) + buffer);
+    const endRow = Math.min(main.gridRows, Math.ceil(viewY2 / cellSize) + buffer);
 
     // Draw ALL cells using calculated pixel coordinates
     for (let x = startCol; x < endCol; x++) {
@@ -78,8 +78,8 @@ function drawGrid() {
 
             const colorIndex = grid[x][y];
             // Draw ALL valid color indices (including 0)
-            if (colorIndex >= 0 && colorIndex < cellColors.length) {
-                 ctx.fillStyle = main.color[colorIndex];
+            if (colorIndex >= 0 && colorIndex < main.colors.length) {
+                 ctx.fillStyle = main.colors[colorIndex];
 
                  // Calculate final pixel coordinates and dimensions
                  const px = Math.floor(offsetX + x * cellSize * scale);
