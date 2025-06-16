@@ -88,7 +88,7 @@ function drawGrid() {
                  const pw = Math.ceil(cellSize * main.scale);
                  const ph = Math.ceil(cellSize * main.scale);
 
-                 if (px + pw > 0 && px < width && py + ph > 0 && py < height) {
+                 if (px + pw > 0 && px < main.width && py + ph > 0 && py < main.height) {
                     ctx.fillRect(px, py, pw, ph);
                  }
             } // else { console.warn(`Invalid color index at ${x},${y}: ${colorIndex}`); } // Optional: Warn on invalid index
