@@ -19,12 +19,14 @@ main.addMoveRule(1, 0, "L", 0);
 const canvas = document.getElementById('canvas');
 const canvasHolder = document.getElementById("canvasHolder")
 const ctx = canvas.getContext('2d');
+const outputTxt = document.getElementById("output");
 function resize() {
-  const outputElm = document.getElementById("output");
-  outputElm.style.width = (window.innerWidth - 25) + "px";
-  outputElm.style.height = (window.innerHeight - 27) + "px";
   main.width = window.innerWidth
   main.height = window.innerHeight
+  outputTxt.style.width = (main.width - 25) + "px";
+  outputTxt.style.height = (main.height - 27) + "px";
+  canvas.width = main.width
+  canvas.height = main.height
 }
 function toggleHide(elm) {
   if (elm.hidden) {
