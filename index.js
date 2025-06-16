@@ -82,10 +82,10 @@ function drawGrid() {
                  ctx.fillStyle = main.colors[colorIndex];
 
                  // Calculate final pixel coordinates and dimensions
-                 const px = Math.floor(offsetX + x * cellSize * scale);
-                 const py = Math.floor(offsetY + y * cellSize * scale);
-                 const pw = Math.ceil(cellSize * scale);
-                 const ph = Math.ceil(cellSize * scale);
+                 const px = Math.floor(offsetX + x * cellSize * main.scale);
+                 const py = Math.floor(offsetY + y * cellSize * main.scale);
+                 const pw = Math.ceil(cellSize * main.scale);
+                 const ph = Math.ceil(cellSize * main.scale);
 
                  if (px + pw > 0 && px < width && py + ph > 0 && py < height) {
                     ctx.fillRect(px, py, pw, ph);
