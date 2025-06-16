@@ -27,7 +27,6 @@ function resize() {
   main.height = window.innerHeight
 }
 function toggleHide(elm) {
-  alert("Toggle hide")
   if (elm.hidden) {
     elm.hidden = false;
   } else {
@@ -35,7 +34,6 @@ function toggleHide(elm) {
   }
 }
 window.onload = () => {
-  toggleHide(document.getElementById("canvasHolder"))
   resize();
   try {
     run();
