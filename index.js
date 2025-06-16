@@ -21,13 +21,14 @@ const canvas = document.getElementById('canvas');
 const canvasHolder = document.getElementById("canvasHolder")
 const ctx = canvas.getContext('2d');
 const outputTxt = document.getElementById("output");
+const outputHolder = document.getElementById("outputHolder");
 function resize() {
   main.width = window.innerWidth
   main.height = window.innerHeight
   outputTxt.style.width = main.width + "px";
   outputTxt.style.height = (main.height-2) + "px";
   canvas.width = main.width
-  canvas.height = main.height
+  canvas.height = (main.height-2)
 }
 function toggleHide(elm) {
   if (elm.hidden) {
@@ -49,6 +50,7 @@ window.addEventListener('resize', resize);
 window.addEventListener('keydown', (c) => {
   if (c.key==="c") {
     toggleHide(canvasHolder)
+    toggleHide(outputHolder)
   }
 })
 function drawGrid() {
