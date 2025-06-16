@@ -44,6 +44,6 @@ window.onload = () => {
 window.addEventListener('resize', resize);
 window.addEventListener('keyDown', (c) => {
   if (c.key==="c") {
-    
+    toggleHide(document.getElementById("canvas"))
   }
 })
