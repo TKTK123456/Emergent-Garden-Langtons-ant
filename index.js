@@ -35,6 +35,7 @@ function toggleHide(elm) {
   }
 }
 window.onload = () => {
+  toggleHide(document.getElementById("canvasHolder"))
   resize();
   try {
     run();
