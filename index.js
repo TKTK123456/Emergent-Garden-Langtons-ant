@@ -15,6 +15,7 @@ main.addMoveRule(0, 0, "L", 1);
 main.addMoveRule(1, 1, "v");
 main.addMoveRule(1, 2, "N");
 main.addMoveRule(1, 0, "L", 0);
+  drawGrid()
 }
 const canvas = document.getElementById('canvas');
 const canvasHolder = document.getElementById("canvasHolder")
