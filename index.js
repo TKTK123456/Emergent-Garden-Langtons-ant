@@ -25,7 +25,7 @@ function resize() {
   main.width = window.innerWidth
   main.height = window.innerHeight
   outputTxt.style.width = main.width + "px";
-  outputTxt.style.height = main.height + "px";
+  outputTxt.style.height = (main.height-2) + "px";
   canvas.width = main.width
   canvas.height = main.height
 }
