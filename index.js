@@ -76,8 +76,8 @@ function drawGrid() {
         if (x < 0 || x >= grid.length || !grid[x]) continue;
         for (let y = startRow; y < endRow; y++) {
              if (y < 0 || y >= grid[x].length) continue;
-
             const colorIndex = grid[x][y];
+            alert(colorIndex)
             // Draw ALL valid color indices (including 0)
             if (colorIndex >= 0 && colorIndex < main.colors.length) {
                  ctx.fillStyle = main.colors[colorIndex];
